@@ -11,7 +11,7 @@ namespace Conesoft.Website
             services.AddUsers("Conesoft Host", Hosting.Host.GlobalStorage / "Users");
             services.AddRazorPages();
             services.AddHttpClient();
-            services.AddSingleton<Data.Scheduler>();
+            services.AddSingleton(new Data.Scheduler(Hosting.Host.GlobalStorage / "Tasks"));
         }
 
         public void Configure(IApplicationBuilder app)

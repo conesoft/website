@@ -19,9 +19,9 @@ namespace Conesoft.Website.Api
         public async Task<IActionResult> StartScheduling([FromForm] string website, [FromForm] string redirectto, [FromServices] IHttpClientFactory factory, [FromServices] Data.Scheduler scheduler)
         {
             var client = factory.CreateClient();
-            var data = await client.GetFromJsonAsync<Data.Task[]>($"https://{website}/tasks/all.json", jsonOptions);
+            var data = await client.GetFromJsonAsync<Data.Json.Task[]>($"https://{website}/tasks/all.json", jsonOptions);
 
-            scheduler.Add(website, data);
+            await scheduler.Add(website, data);
 
             return Redirect(redirectto);
         }

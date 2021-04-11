@@ -16,6 +16,6 @@ namespace Conesoft.Website.Pages
             Entries = null;
         }
 
-        public IReadOnlyDictionary<string, Data.Task[]> Entries { get; private set; }
+        public IReadOnlyDictionary<string, Data.Json.Task[]> Entries { get; private set; }
     }
 }

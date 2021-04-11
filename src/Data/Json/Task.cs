@@ -1,4 +1,4 @@
-﻿namespace Conesoft.Website.Data
+﻿namespace Conesoft.Website.Data.Json
 {
     public class Task
     {
