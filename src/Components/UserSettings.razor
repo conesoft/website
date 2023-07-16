@@ -1,8 +1,10 @@
 ﻿<h1>user settings for <Username /></h1>
-<label>
-    current active tokens by you
-    <GenerateToken />
-</label>
+
+<fieldset horizontal>
+    <legend>generate new tokens</legend>
+    <GenerateToken TokenName="user" TokenPrefix="cnsft" Role="CanCreateNewUserTokens" />
+    <GenerateToken TokenName="minecraft" TokenPrefix="mncft" Role="CanCreateMinecraftTokens" />
+</fieldset>
 <label>
     copy token by click
     <ListTokens />

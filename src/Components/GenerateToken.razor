@@ -1,8 +1,8 @@
 ﻿@inject UserTokenStorage userTokenStorage
 
-<AuthorizeView>
+<AuthorizeView Roles="@Role">
     <Authorized>
-        <button @onclick=Generate>generate new token</button>
+        <button @onclick=Generate>@TokenName</button>
     </Authorized>
 </AuthorizeView>
 
@@ -10,12 +10,21 @@
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
 
+    [Parameter]
+    public string TokenPrefix { get; set; } = "";
+
+    [Parameter]
+    public string TokenName { get; set; } = "";
+
+    [Parameter]
+    public string Role { get; set; } = "";
+
     public async void Generate()
     {
         if(await authenticationState.GetUserName() is string user)
         {
-            var token = Utilities.TokenGenerator.CreateToken();
-            var file = userTokenStorage.Directory / user / Filename.FromExtended(token);
+            var token = Utilities.TokenGenerator.CreateToken(withPrefix: TokenPrefix);
+            var file = userTokenStorage.For(user) / Filename.FromExtended(token);
             await file.WriteText("");
         }
     }

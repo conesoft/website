@@ -3,8 +3,8 @@
 public static class TokenGenerator
 {
     static string TokenPieces(int pieces) => "0123456789abcdefghijklmnopqrstuvwxyz".Pick(pieces, distinct: true);
-    static string Prettify(string token) => $"cnsft-token-{token[..5]}-{token[5..]}";
-    static public string CreateToken() => Prettify(TokenPieces(10));
+    static string Prettify(string prefix, string token) => $"{prefix}-token-{token[..5]}-{token[5..]}";
+    static public string CreateToken(string withPrefix) => Prettify(prefix: withPrefix, TokenPieces(10));
 }
 
 

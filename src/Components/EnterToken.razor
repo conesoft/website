@@ -16,7 +16,10 @@
 
     public void SubmitToken()
     {
-        if (userTokenStorage.Directory.Filtered(Token, allDirectories: true).FirstOrDefault() is File found)
+        if (userTokenStorage.Directory.Filtered(Token, allDirectories: true).FirstOrDefault() is File found
+            && found.Parent.Name == "tokens"
+            && found.Parent.Parent.Parent == userTokenStorage.Directory
+        )
         {
             found.Delete();
             NextStep?.Invoke();

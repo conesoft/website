@@ -31,7 +31,7 @@
     {
         if(await authenticationState.GetUserName() is string user)
         {
-            var userDirectory = userTokenStorage.Directory / user;
+            var userDirectory = userTokenStorage.For(user);
             var _ = userTokenStorage.Directory.WatchLive(async files =>
             {
                 await InvokeAsync(() =>
@@ -47,7 +47,7 @@
     {
         if (await authenticationState.GetUserName() is string user)
         {
-            var file = userTokenStorage.Directory / user / Filename.FromExtended(token);
+            var file = userTokenStorage.For(user) / Filename.FromExtended(token);
             file.Delete();
         };
     }

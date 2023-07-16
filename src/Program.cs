@@ -15,7 +15,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddUsers("cnsft", (Conesoft.Hosting.Host.GlobalStorage / "Users").Path);
 
-builder.Services.AddSingleton(new UserTokenStorage(Conesoft.Hosting.Host.GlobalStorage / "Users" / "Tokens"));
+builder.Services.AddSingleton(new UserTokenStorage(Conesoft.Hosting.Host.GlobalStorage / "Users"));
 
 var app = builder.Build();
 
@@ -83,4 +83,7 @@ app.Run();
 
 
 
-record UserTokenStorage(Conesoft.Files.Directory Directory);
+record UserTokenStorage(Conesoft.Files.Directory Directory)
+{
+    public Conesoft.Files.Directory For(string User) => Directory / User / "tokens";
+}
