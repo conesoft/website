@@ -1,0 +1,26 @@
+﻿@inject UserTokenStorage userTokenStorage
+
+<EditForm Context="formContext" Model="this" OnSubmit="SubmitToken">
+    <InputText @bind-Value="Token" placeholder="Token"></InputText>
+    <input type="submit" value="submit token">
+</EditForm>
+
+@code {
+    private string Token = "";
+
+    [CascadingParameter]
+    public Action? NextStep { get; set; } = null;
+
+    [Parameter]
+    public Action? OnTokenIsValid { get; set; } = null;
+
+    public void SubmitToken()
+    {
+        if (userTokenStorage.Directory.Filtered(Token, allDirectories: true).FirstOrDefault() is File found)
+        {
+            found.Delete();
+            NextStep?.Invoke();
+        }
+        Token = "";
+    }
+}

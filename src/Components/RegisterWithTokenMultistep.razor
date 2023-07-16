@@ -1,0 +1,41 @@
+﻿<CascadingValue Value="@NextStep">
+    @switch (registrationStep)
+    {
+        case RegistrationStep.WaitingForToken:
+            <h1>user access</h1>
+
+            <label>
+                enter your token to create an account
+                <EnterToken />
+            </label>
+            <label>
+                 or login with your existing user account
+                <Login />
+            </label>
+            break;
+
+        case RegistrationStep.TokenOkWaitingForRegistration:
+            <h1>user account creation</h1>
+
+            <label>
+                register your account
+                <Register />
+            </label>
+            break;
+    }
+</CascadingValue>
+
+@code {
+    enum RegistrationStep
+    {
+        WaitingForToken,
+        TokenOkWaitingForRegistration
+    }
+    private RegistrationStep registrationStep = RegistrationStep.WaitingForToken;
+
+    void NextStep()
+    {
+        registrationStep++;
+        StateHasChanged();
+    }
+}

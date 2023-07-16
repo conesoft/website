@@ -1,0 +1,54 @@
+﻿@inject UserTokenStorage userTokenStorage
+
+<AuthorizeView>
+    <Authorized>
+        @if(Tokens.Any())
+        {
+            <ul>
+                @foreach (var token in Tokens)
+                {
+                    <li style="grid-template-columns: 1fr auto">
+                        <input type="text" value="@token" readonly onClick="navigator.clipboard.writeText('@token');alert('copied @token to clipboard')">
+                        <button @onclick="() => DeleteToken(token)">x</button>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <i>no tokens generated</i>
+        }
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+    private string[] Tokens = Array.Empty<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(await authenticationState.GetUserName() is string user)
+        {
+            var userDirectory = userTokenStorage.Directory / user;
+            var _ = userTokenStorage.Directory.WatchLive(async files =>
+            {
+                await InvokeAsync(() =>
+                {
+                    Tokens = files.Where(f => f.Parent == userDirectory).Select(f => f.Name).ToArray();
+                    StateHasChanged();
+                });
+            });
+        }
+    }
+
+    async Task DeleteToken(string token)
+    {
+        if (await authenticationState.GetUserName() is string user)
+        {
+            var file = userTokenStorage.Directory / user / Filename.FromExtended(token);
+            file.Delete();
+        };
+    }
+}

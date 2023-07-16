@@ -1,0 +1,24 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@namespace Conesoft.Website.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html green lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="~/" />
+    <title>Conesoft</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="viewport" content="width=device-width">
+    <link href="css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.conesoft.net/style.min.css?v=bc12bb8ed9456345fd5c347c0f3a0d7af">
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+</head>
+<body>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <div id="blazor-error-ui" style="display:none"></div>
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>
