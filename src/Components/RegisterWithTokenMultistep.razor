@@ -2,25 +2,36 @@
     @switch (registrationStep)
     {
         case RegistrationStep.WaitingForToken:
-            <h1>user access</h1>
+            <section id="title">
+                <h1>user access</h1>
+            </section>
 
-            <label>
-                enter your token to create an account
-                <EnterToken />
-            </label>
-            <label>
-                 or login with your existing user account
-                <Login />
-            </label>
+            <section>
+                <fieldset>
+                    <legend>enter your token to create an account</legend>
+                    <EnterToken />
+                </fieldset>
+            </section>
+
+            <section>
+                <fieldset>
+                    <legend>or login with your existing user account</legend>
+                    <Login />
+                </fieldset>
+            </section>
             break;
 
         case RegistrationStep.TokenOkWaitingForRegistration:
-            <h1>user account creation</h1>
+            <section id="title">
+                <h1>user account creation</h1>
+            </section>
 
-            <label>
-                register your account
-                <Register />
-            </label>
+            <section>
+                <fieldset>
+                    <legend>register your account</legend>
+                    <Register />
+                </fieldset>
+            </section>
             break;
     }
 </CascadingValue>

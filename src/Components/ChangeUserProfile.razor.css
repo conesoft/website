@@ -1,0 +1,22 @@
+form {
+    container-type: inline-size;
+}
+
+label {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    background: #333;
+}
+
+.button {
+    height: 2rem;
+}
+
+img {
+    place-self: center;
+    max-width: 50cqw;
+    max-height: 50cqw;
+    object-fit: cover;
+}

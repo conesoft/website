@@ -1,16 +1,25 @@
-﻿<h1>user settings for <Username /></h1>
+﻿<section id="title">
+    <h1>user settings for <Username /></h1>
+</section>
 
-<fieldset horizontal>
-    <legend>generate new tokens</legend>
-    <GenerateToken TokenName="user" TokenPrefix="cnsft" Role="CanCreateNewUserTokens" />
-    <GenerateToken TokenName="minecraft" TokenPrefix="mncft" Role="CanCreateMinecraftTokens" />
-</fieldset>
-<label>
-    copy token by click
-    <ListTokens />
-</label>
+<section id="profile">
+    <fieldset>
+        <legend>change user profile image</legend>
+        <ChangeUserProfile />
+    </fieldset>
+</section>
 
-<label>
-    logout of account
-    <Logout />
-</label>
+<section id="newtoken">
+    <fieldset horizontal>
+        <legend>generate new tokens</legend>
+        <GenerateToken TokenName="user" TokenPrefix="cnsft" Role="CanCreateNewUserTokens" />
+        <GenerateToken TokenName="minecraft" TokenPrefix="mncft" Role="CanCreateMinecraftTokens" />
+    </fieldset>
+</section>
+
+<section id="tokens">
+    <fieldset>
+        <legend>copy token by click</legend>
+        <ListTokens />
+    </fieldset>
+</section>

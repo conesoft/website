@@ -1,0 +1,23 @@
+﻿@inherits LayoutComponentBase
+@using Conesoft.Blazor.Components
+
+<PageTitle>Conesoft</PageTitle>
+<HeadContent>
+    <HtmlHead />
+
+    <meta name="description" content="Conesoft" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Conesoft" />
+    <meta property="og:description" content="Conesoft" />
+    <meta property="og:image" content="/meta-image.jpg" />
+</HeadContent>
+
+<UserHeaderNav NoUserLogin="true">
+    <NavLink href="" Match="NavLinkMatch.All">⌂ conesoft</NavLink>
+</UserHeaderNav>
+@Body
+<footer>
+    <p>&copy; 2023</p>
+    <p>written by <a href="https://davepermen.net">davepermen</a></p>
+    <p>a <a href="https://conesoft.net">conesoft product</a></p>
+</footer>

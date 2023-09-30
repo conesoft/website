@@ -1,11 +1,13 @@
 ﻿@page "/"
 
-<AuthorizeView>
-    <Authorized>
-        <UserSettings />
-    </Authorized>
+<main>
+    <AuthorizeView>
+        <Authorized>
+            <UserSettings />
+        </Authorized>
 
-    <NotAuthorized>
-        <RegisterWithTokenMultistep />
-    </NotAuthorized>
-</AuthorizeView>
+        <NotAuthorized>
+            <RegisterWithTokenMultistep />
+        </NotAuthorized>
+    </AuthorizeView>
+</main>

@@ -11,6 +11,7 @@ var wirepusherSecret = configuration["wirepusher:secret"]!;
 var conesoftSecret = configuration["conesoft:secret"]!;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddUsers("cnsft", (Conesoft.Hosting.Host.GlobalStorage / "Users").Path);

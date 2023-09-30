@@ -1,0 +1,44 @@
+<AuthorizeView>
+    <Authorized>
+        <form method="post" enctype="multipart/form-data" action="/user/update-profile-picture">
+            @{
+                var user = context.User.Identity?.Name ?? "--noname--";
+                var profilePicture = $"/user/{user}.jpg?{Random.Shared.Next()}";
+            }
+            <img src="@(TemporaryPicture ?? profilePicture)" />
+            <label>
+                <InputFile name="file" OnChange=ChangeProfilePicture />
+                @if (TemporaryPicture == null)
+                {
+                    <div class="button">change profile picture</div>
+                }
+            </label>
+            <input type="hidden" name="redirectto" value="/">
+            @if (TemporaryPicture != null)
+            {
+                <fieldset horizontal>
+                    <input type="submit" value="save" />
+                    <input type="reset" value="cancel" @onclick=CancelChanging />
+                </fieldset>
+            }
+        </form>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    string? TemporaryPicture { get; set; }
+
+    async Task ChangeProfilePicture(InputFileChangeEventArgs inputFileChangeEventArgs)
+    {
+        var image = await inputFileChangeEventArgs.File.RequestImageFileAsync("image/png", 600, 600);
+        using Stream imageStream = image.OpenReadStream(1024 * 1024 * 10);
+        using MemoryStream ms = new();
+        await imageStream.CopyToAsync(ms);
+        TemporaryPicture = $"data:image/png;base64,{Convert.ToBase64String(ms.ToArray())}";
+    }
+
+    void CancelChanging()
+    {
+        TemporaryPicture = null;
+    }
+}
