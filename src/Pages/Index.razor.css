@@ -1,17 +1,14 @@
 main {
     grid-template:
-        "title   title   " auto
         "profile newtoken" auto
         "profile tokens  " 1fr
         / 1fr 1fr;
-
     place-items: start stretch;
 }
 
 @media(max-aspect-ratio: 1) {
     main {
         grid-template:
-            "title" auto
             "profile" auto
             "newtoken" auto
             "tokens" auto
@@ -19,15 +16,14 @@ main {
     }
 }
 
-::deep #title {
-    grid-area: title;
-}
 ::deep #profile {
     grid-area: profile;
 }
+
 ::deep #newtoken {
     grid-area: newtoken;
 }
+
 ::deep #tokens {
     grid-area: tokens;
 }

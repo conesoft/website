@@ -1,25 +1,24 @@
-﻿<section id="title">
-    <h1>user settings for <Username /></h1>
-</section>
+﻿<SectionContent SectionName="Header">
+    <UserHeaderNav NavClass="breadcrumbs">
+        <NavLink href="" Match="NavLinkMatch.All">⌂</NavLink>
+        <NavLink>conesoft</NavLink> ▸ <NavLink>settings</NavLink> ▸ <NavLink href="" Match="NavLinkMatch.All"><Username /></NavLink>
+    </UserHeaderNav>
+</SectionContent>
 
 <section id="profile">
-    <fieldset>
-        <legend>change user profile image</legend>
-        <ChangeUserProfile />
-    </fieldset>
+    <header>change user profile image</header>
+    <ChangeUserProfile />
 </section>
 
 <section id="newtoken">
-    <fieldset horizontal>
-        <legend>generate new tokens</legend>
-        <GenerateToken TokenName="user" TokenPrefix="cnsft" Role="CanCreateNewUserTokens" />
-        <GenerateToken TokenName="minecraft" TokenPrefix="mncft" Role="CanCreateMinecraftTokens" />
-    </fieldset>
+    <header>generate new tokens</header>
+    <ul>
+        <li><GenerateToken TokenName="user" TokenPrefix="cnsft" Role="CanCreateNewUserTokens" /></li>
+        <li><GenerateToken TokenName="minecraft" TokenPrefix="mncft" Role="CanCreateMinecraftTokens" /></li>
+    </ul>
 </section>
 
 <section id="tokens">
-    <fieldset>
-        <legend>copy token by click</legend>
-        <ListTokens />
-    </fieldset>
+    <header>copy token by click</header>
+    <ListTokens />
 </section>

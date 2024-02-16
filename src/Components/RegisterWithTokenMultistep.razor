@@ -1,36 +1,29 @@
-﻿<CascadingValue Value="@NextStep">
+﻿<SectionContent SectionName="Header">
+    <UserHeaderNav NavClass="breadcrumbs" NoUserLogin="true">
+        <NavLink href="" Match="NavLinkMatch.All">⌂</NavLink>
+        <NavLink>conesoft</NavLink> ▸ <NavLink href="" Match="NavLinkMatch.All">user access</NavLink>
+    </UserHeaderNav>
+</SectionContent>
+
+<CascadingValue Value="@NextStep">
     @switch (registrationStep)
     {
         case RegistrationStep.WaitingForToken:
-            <section id="title">
-                <h1>user access</h1>
+            <section>
+                <header>enter your token to create an account</header>
+                <EnterToken />
             </section>
 
             <section>
-                <fieldset>
-                    <legend>enter your token to create an account</legend>
-                    <EnterToken />
-                </fieldset>
-            </section>
-
-            <section>
-                <fieldset>
-                    <legend>or login with your existing user account</legend>
-                    <Login />
-                </fieldset>
+                <header>or login with your existing user account</header>
+                <Login />
             </section>
             break;
 
         case RegistrationStep.TokenOkWaitingForRegistration:
-            <section id="title">
-                <h1>user account creation</h1>
-            </section>
-
             <section>
-                <fieldset>
-                    <legend>register your account</legend>
-                    <Register />
-                </fieldset>
+                <header>register your account</header>
+                <Register />
             </section>
             break;
     }

@@ -1,0 +1,21 @@
+::deep form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1rem;
+}
+
+    ::deep form > *:last-child {
+        flex-grow: 1;
+        margin-top: 1rem;
+    }
+
+::deep input {
+    height: 3rem;
+}
+
+section {
+    grid-template-rows: min-content;
+    grid-auto-rows: 1fr;
+    place-self: stretch;
+}

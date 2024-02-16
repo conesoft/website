@@ -1,6 +1,9 @@
+input {
+    padding-inline-start: 1rem;
+}
+
 button {
     width: 3rem;
     aspect-ratio: 1;
-    font-size: 2rem;
     --button-color: var(--danger-color);
 }
