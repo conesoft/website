@@ -25,7 +25,7 @@
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
 
-    private string[] Tokens = Array.Empty<string>();
+    private string[] Tokens = [];
 
     protected override async Task OnInitializedAsync()
     {

@@ -1,5 +1,7 @@
 input {
     padding-inline-start: 1rem;
+    place-self: stretch;
+    text-align: center;
 }
 
 button {
