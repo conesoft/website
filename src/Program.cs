@@ -1,4 +1,5 @@
 using Conesoft.Hosting;
+using Conesoft.PwaGenerator;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,8 @@ app.MapStaticAssets();
 app.MapUsersWithStorage();
 
 app.UseRouting();
+
+app.MapPwaInformationFromAppSettings();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");

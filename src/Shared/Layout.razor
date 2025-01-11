@@ -1,16 +1,12 @@
 ﻿@inherits LayoutComponentBase
 @using Conesoft.Blazor.Components
+@using Conesoft.PwaGenerator
 
 <PageTitle>Conesoft</PageTitle>
-<HeadContent>
-    <HtmlHead Cdn="new" />
-
-    <meta name="description" content="Conesoft" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Conesoft" />
-    <meta property="og:description" content="Conesoft" />
-    <meta property="og:image" content="/meta-image.jpg" />
-</HeadContent>
+<head>
+    <HtmlHead />
+    <PwaHeaderTags />
+</head>
 
 <SectionOutlet SectionName="Header">
 </SectionOutlet>
