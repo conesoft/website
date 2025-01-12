@@ -7,16 +7,22 @@
             <ul>
                 @foreach (var token in Tokens)
                 {
-                    <li style="grid-template-columns: 1fr auto">
+                    <li>
                         <input type="text" value="@token" readonly onClick="navigator.clipboard.writeText('@token');alert('copied @token to clipboard')">
-                        <button @onclick="() => DeleteToken(token)">x</button>
+                        <menu>
+                            <li>
+                                <button dangerous @onclick="() => DeleteToken(token)">✕</button>
+                            </li>
+                        </menu>
                     </li>
                 }
             </ul>
         }
         else
         {
-            <i>no tokens generated</i>
+            <ul empty>
+                <li>no tokens generated</li>
+            </ul>
         }
     </Authorized>
 </AuthorizeView>

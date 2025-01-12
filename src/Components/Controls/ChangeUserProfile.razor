@@ -6,20 +6,19 @@
                 var profilePicture = $"/user/{user}.jpg?{Random.Shared.Next()}";
             }
             <img src="@(TemporaryPicture ?? profilePicture)" />
-            <label>
-                <InputFile name="file" OnChange=ChangeProfilePicture />
+            <InputFile id="file" name="file" OnChange=ChangeProfilePicture />
+            <label for="file">
                 @if (TemporaryPicture == null)
                 {
-                    <div class="button">change profile picture</div>
+                    <span>change profile picture</span>
                 }
             </label>
+            <AntiforgeryToken />
             <input type="hidden" name="redirectto" value="/">
             @if (TemporaryPicture != null)
             {
-                <fieldset horizontal>
-                    <input type="submit" class="button" value="save" />
-                    <input type="reset" class="button" value="cancel" @onclick=CancelChanging />
-                </fieldset>
+                <input type="submit" class="button" value="save" />
+                <input type="reset" class="button" value="cancel" @onclick=CancelChanging />
             }
         </form>
     </Authorized>

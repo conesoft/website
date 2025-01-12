@@ -1,5 +1,6 @@
 using Conesoft.Hosting;
 using Conesoft.PwaGenerator;
+using Conesoft.Website.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,49 +9,34 @@ builder
     .AddUsersWithStorage()
     .AddHostEnvironmentInfo()
     .AddLoggingService()
+    .AddNotificationService()
     ;
 
 builder.Services
     .AddCompiledHashCacheBuster()
-    .AddHttpClient();
-
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-
-builder.Services.AddSingleton<UserTokenStorage>();
+    .AddSingleton<UserTokenStorage>()
+    .AddHttpClient()
+    .AddAntiforgery()
+    .AddCascadingAuthenticationState()
+    .AddRazorComponents().AddInteractiveServerComponents();
 
 var app = builder.Build();
 
 app
-    .UseCompiledHashCacheBuster();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
+    .UseCompiledHashCacheBuster()
+    .UseDeveloperExceptionPage()
+    .UseRouting()
+    .UseStaticFiles()
+    .UseAuthentication()
+    .UseAuthorization()
+    .UseAntiforgery();
 
 app.MapStaticAssets();
 
 app.MapUsersWithStorage();
-
-app.UseRouting();
-
 app.MapPwaInformationFromAppSettings();
 
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
 app.Run();
-
-
-
-
-class UserTokenStorage(HostEnvironment environment)
-{
-    public Conesoft.Files.Directory Directory => environment.Global.Storage / "Users";
-    public Conesoft.Files.Directory For(string User) => Directory / User / "tokens";
-}

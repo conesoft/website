@@ -1,0 +1,19 @@
+﻿@page "/"
+@using Conesoft.Website.Components.Controls
+
+@rendermode InteractiveServer
+
+<CascadingAuthenticationState>
+    <SectionOutlet SectionName="Header" />
+    <main>
+        <AuthorizeView>
+            <Authorized>
+                <UserSettings />
+            </Authorized>
+
+            <NotAuthorized>
+                <RegisterWithTokenMultistep />
+            </NotAuthorized>
+        </AuthorizeView>
+    </main>
+</CascadingAuthenticationState>

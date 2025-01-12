@@ -2,7 +2,9 @@
 
 <AuthorizeView Roles="@Role">
     <Authorized>
-        <button @onclick=Generate>@TokenName</button>
+        <li>
+            <a @onclick=Generate @onclick:preventDefault=true @onclick:stopPropagation=true>@TokenName</a>
+        </li>
     </Authorized>
 </AuthorizeView>
 
@@ -21,7 +23,7 @@
 
     public async void Generate()
     {
-        if(await authenticationState.GetUserName() is string user)
+        if (await authenticationState.GetUserName() is string user)
         {
             var token = Utilities.TokenGenerator.CreateToken(withPrefix: TokenPrefix);
             var file = userTokenStorage.For(user) / Filename.FromExtended(token);

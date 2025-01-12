@@ -1,4 +1,8 @@
-::deep form {
+main > section {
+    grid-column: auto;
+}
+
+/*::deep form {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -18,4 +22,4 @@ section {
     grid-template-rows: min-content;
     grid-auto-rows: 1fr;
     place-self: stretch;
-}
+}*/
