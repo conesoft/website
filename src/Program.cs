@@ -14,29 +14,18 @@ builder
 
 builder.Services
     .AddCompiledHashCacheBuster()
-    .AddSingleton<UserTokenStorage>()
     .AddHttpClient()
-    .AddAntiforgery()
-    .AddCascadingAuthenticationState()
-    .AddRazorComponents().AddInteractiveServerComponents();
+    .AddSingleton<UserTokenStorage>()
+    .AddRazorComponents().AddInteractiveServerComponents()
+    ;
 
 var app = builder.Build();
 
-app
-    .UseCompiledHashCacheBuster()
-    .UseDeveloperExceptionPage()
-    .UseRouting()
-    .UseStaticFiles()
-    .UseAuthentication()
-    .UseAuthorization()
-    .UseAntiforgery();
-
-app.MapStaticAssets();
-
-app.MapUsersWithStorage();
 app.MapPwaInformationFromAppSettings();
+app.MapUsersWithStorage();
+app.MapStaticAssets();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.MapGet("/user/login", () => Results.Redirect("/"));
 
 app.Run();

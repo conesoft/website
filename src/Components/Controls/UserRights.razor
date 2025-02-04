@@ -1,0 +1,56 @@
+﻿@using System.Security.Claims
+@using Conesoft.Hosting
+@using System.Text.Json.Nodes
+@using System.Text.Json
+@using Serilog
+
+@inject HostEnvironment environment
+
+@rendermode InteractiveServer
+
+<AuthorizeView>
+    <Authorized>
+        <ul>
+            @foreach (var claim in context.User.Claims.Where(c => c.Type == ClaimTypes.Role))
+            {
+                <li>
+                    <section>
+                        <b>@claim.Value.Humanize(LetterCasing.LowerCase)</b>
+                        <pre>@claim.Value</pre>
+                    </section>
+                    <menu>
+                        <li>
+                            <button dangerous @onclick="() => DeleteRole(claim.Value)">✕</button>
+                        </li>
+                    </menu>
+                </li>
+            }
+        </ul>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+    async Task DeleteRole(string role)
+    {
+        if (await authenticationState.GetUserName() is string user)
+        {
+            var userfile = environment.Global.Storage / "Users" / user / Filename.From("login-data", "json");
+            var usertext = await userfile.ReadText();
+            var userdata = JsonNode.Parse(usertext!)!;
+            var roles = userdata["roles"]!.AsArray();
+            if (roles.FirstOrDefault(r => r!.ToString() == role) is JsonNode found)
+            {
+                roles.Remove(found);
+            }
+            await userfile.WriteText(userdata.ToJsonString(new JsonSerializerOptions
+            {
+                WriteIndented = true
+            }));
+            Log.Information("rights for user {user} got updated", user);
+            await InvokeAsync(StateHasChanged);
+        };
+    }
+}

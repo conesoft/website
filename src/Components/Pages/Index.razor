@@ -4,11 +4,36 @@
 @rendermode InteractiveServer
 
 <CascadingAuthenticationState>
-    <SectionOutlet SectionName="Header" />
     <main>
         <AuthorizeView>
             <Authorized>
-                <UserSettings />
+                <SectionContent SectionName="Header">
+                    <UserHeaderNav NavClass="breadcrumbs">
+                        <HomeButtonContent>⌂</HomeButtonContent>
+                        <NavContent>
+                            <NavLink>conesoft</NavLink> ▸ <NavLink>settings</NavLink> ▸ <NavLink href="" Match="NavLinkMatch.All"><Username /></NavLink>
+                        </NavContent>
+                    </UserHeaderNav>
+                </SectionContent>
+
+                <section title="change user profile image" id="profile">
+                    <ChangeUserProfile />
+                </section>
+
+                <section title="assigned rights" id="rights">
+                    <UserRights />
+                </section>
+
+                <section title="generate new tokens" id="newtoken">
+                    <ul>
+                        <GenerateToken TokenName="user" TokenPrefix="cnsft" Role="Admin, Editor" />
+                        <GenerateToken TokenName="minecraft" TokenPrefix="mncft" Role="Admin, Editor, Viewer" />
+                    </ul>
+                </section>
+
+                <section title="copy token by click" id="tokens">
+                    <ListTokens />
+                </section>
             </Authorized>
 
             <NotAuthorized>

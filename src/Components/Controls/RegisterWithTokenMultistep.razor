@@ -11,20 +11,17 @@
     @switch (registrationStep)
     {
         case RegistrationStep.WaitingForToken:
-            <section>
-                <header>enter your token to create an account</header>
+            <section title="enter your token to create an account">
                 <EnterToken />
             </section>
 
-            <section>
-                <header>or login with your existing user account</header>
+            <section title="or login with your existing user account">
                 <Login />
             </section>
             break;
 
         case RegistrationStep.TokenOkWaitingForRegistration:
-            <section>
-                <header>register your account</header>
+            <section title="register your account">
                 <Register />
             </section>
             break;

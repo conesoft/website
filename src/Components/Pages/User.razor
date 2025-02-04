@@ -1,0 +1,27 @@
+﻿@page "/user"
+@using Conesoft.Website.Components.Controls
+@using Microsoft.AspNetCore.Authorization
+
+@rendermode InteractiveServer
+
+@attribute [Authorize]
+
+<SectionContent SectionName="Header">
+    <UserHeaderNav NavClass="breadcrumbs">
+        <NavLink>user</NavLink> ▸ <NavLink href="/user"><Username /></NavLink>
+    </UserHeaderNav>
+</SectionContent>
+
+<main style="display: flex">
+    <section title="Profile Picture">
+        <ChangeUserProfile />
+    </section>
+    <section title="Password">
+        <form method=post action=/user/update/password>
+            <input type=hidden name=redirectto value='/'>
+            <input type=password name=current-password>
+            <input type=password name=new-password>
+            <input type=submit value="change password">
+        </form>
+    </section>
+</main>
