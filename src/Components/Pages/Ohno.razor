@@ -1,0 +1,11 @@
+﻿@page "/ohno"
+@using Conesoft.Tools
+<h3>Ohno</h3>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Safe.Try(() => throw new Exception("benis"));
+        base.OnInitialized();
+    }
+}
