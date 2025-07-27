@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Conesoft.Hosting" Version="3.5.10" />
+		<PackageReference Include="Conesoft.Hosting" Version="3.7.4" />
 	</ItemGroup>
 
 	<ItemGroup>

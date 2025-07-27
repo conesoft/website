@@ -1,51 +1,43 @@
-﻿@inject UserTokenStorage userTokenStorage
+﻿@using Conesoft.Blazor.Components.Base
 
-<AuthorizeView>
-    <Authorized>
-        @if(Tokens.Any())
-        {
-            <ul>
-                @foreach (var token in Tokens)
-                {
-                    <li>
-                        <input type="text" value="@token" readonly onClick="navigator.clipboard.writeText('@token');alert('copied @token to clipboard')">
-                        <menu>
-                            <li>
-                                <button dangerous @onclick="() => DeleteToken(token)">✕</button>
-                            </li>
-                        </menu>
-                    </li>
-                }
-            </ul>
-        }
-        else
-        {
-            <ul empty>
-                <li>no tokens generated</li>
-            </ul>
-        }
-    </Authorized>
-</AuthorizeView>
+@inject UserTokenStorage userTokenStorage
+
+<LiveDirectory Directory="directory">
+    @if(context.Files.Any())
+    {
+        <ul>
+            @foreach (var file in context.Files)
+            {
+                <li>
+                    <input type="text" value="@file.NameWithoutExtension" readonly onClick="navigator.clipboard.writeText('@file.NameWithoutExtension');alert('copied @file.NameWithoutExtension to clipboard')">
+                    <menu>
+                        <li>
+                            <button dangerous @onclick="() => DeleteToken(file.NameWithoutExtension)">✕</button>
+                        </li>
+                    </menu>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <ul empty>
+            <li>no tokens generated</li>
+        </ul>
+    }
+</LiveDirectory>
 
 @code {
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
 
-    private string[] Tokens = [];
+    Directory? directory;
 
     protected override async Task OnInitializedAsync()
     {
-        if(await authenticationState.GetUserName() is string user)
+        if (await authenticationState.GetUserName() is string user)
         {
-            var userDirectory = userTokenStorage.For(user);
-            var _ = userTokenStorage.Directory.WatchLive(async files =>
-            {
-                await InvokeAsync(() =>
-                {
-                    Tokens = files.Where(f => f.Parent == userDirectory).Select(f => f.Name).ToArray();
-                    StateHasChanged();
-                });
-            });
+            directory = userTokenStorage.For(user);
         }
     }
 
@@ -54,7 +46,8 @@
         if (await authenticationState.GetUserName() is string user)
         {
             var file = userTokenStorage.For(user) / Filename.FromExtended(token);
-            file.Delete();
-        };
+            await file.Delete();
+        }
+        ;
     }
 }

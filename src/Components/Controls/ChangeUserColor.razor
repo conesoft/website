@@ -1,0 +1,63 @@
+@using Conesoft.Hosting
+
+@inject AuthenticationStateProvider authenticationStateProvider
+@inject HostEnvironment environment
+@inject IJSRuntime js
+
+<AuthorizeView>
+    <Authorized>
+        <form method="post" enctype="multipart/form-data" action="/user/update-profile-picture">
+            <input type="hidden" name="redirectto" value="/">
+            <input type="range" min="0" max="360" step="1" @bind=@TemporaryColor @bind:event="oninput" @bind:after=ChangeColor />
+            <input type="button" @onclick=SaveColor value="save color"/>
+            <input type="button" @onclick=ResetColor value="reset color"/>
+            <input type="button" @onclick=ResetColorToDefault value="reset to default color" />
+        </form>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    int TemporaryColor = 0;
+    int OriginalColor = 0;
+
+    string name = "";
+
+    File Storage => environment.Global.Storage / "users" / name / Filename.From("color", "txt");
+
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await authenticationStateProvider.GetAuthenticationStateAsync();
+        name = state.User?.Identity?.Name ?? "";
+
+        OriginalColor = int.Parse((await Storage.ReadText()) ?? "157");
+        TemporaryColor = OriginalColor;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await ChangeColor();
+    }
+
+    async Task ChangeColor()
+    {
+        await js.InvokeVoidAsync("document.documentElement.style.setProperty", "--accent-color", $"oklch(0.87 0.20 {TemporaryColor}deg)");
+    }
+
+    async Task SaveColor()
+    {
+        OriginalColor = TemporaryColor;
+        await Storage.WriteText(TemporaryColor.ToString());
+    }
+
+    async Task ResetColor()
+    {
+        TemporaryColor = OriginalColor;
+        await ChangeColor();
+    }
+
+    async Task ResetColorToDefault()
+    {
+        TemporaryColor = 157;
+        await ChangeColor();
+    }
+}

@@ -1,0 +1,24 @@
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    container-type: inline-size;
+}
+
+::deep input[type=file] {
+    display: none;
+}
+
+img {
+    place-self: center;
+    width: min(100%, 50cqw);
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+label:not(:has(*:not(input))) {
+    display: none;
+}
+
+input[type=submit], input[type=reset] {
+    grid-column: auto;
+}

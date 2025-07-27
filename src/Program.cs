@@ -10,17 +10,17 @@ builder
     .AddHostEnvironmentInfo()
     .AddLoggingService()
     .AddNotificationService()
+    .AddCompiledHashCacheBuster()
+    .AddHostingDefaults()
     ;
 
 builder.Services
-    .AddCompiledHashCacheBuster()
-    .AddHttpClient()
     .AddSingleton<UserTokenStorage>()
-    .AddRazorComponents().AddInteractiveServerComponents()
     ;
 
 var app = builder.Build();
 
+app.UseCompiledHashCacheBuster();
 app.MapPwaInformationFromAppSettings();
 app.MapUsersWithStorage();
 app.MapStaticAssets();
